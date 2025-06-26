@@ -18,6 +18,7 @@ TARGET5 = RunDileptonNtupler
 TARGET8 = RunMakeMCPileupDistribution
 #TARGET9 = RunHHHTo6BNtupler
 TARGET10 = RunHHTo2B2GNtupler
+TARGET11 = RunZeeAnalyzer
 
 SRC = app/diHiggs.cc src/Events.cc src/CommandLineInput.cc
 SRC1 = app/NormalizeNtuple.cc src/CommandLineInput.cc src/SimpleTable.cc
@@ -30,6 +31,7 @@ SRC5 = app/RunDileptonNtupler.cc src/DileptonNtupler.cc src/EventAnalyzer.cc inc
 SRC8 = app/RunMakeMCPileupDistribution.cc src/MakeMCPileupDistribution.cc src/EventAnalyzer.cc include/Events.hh
 #SRC9 = app/RunHHHTo6BNtupler.cc src/HHHTo6BNtupler.cc src/JetCorrectionUncertainty.cc src/JetCorrectorParameters.cc src/SimpleJetCorrectionUncertainty.cc src/EventAnalyzer.cc include/Events.hh
 SRC10 = app/RunHHTo2B2GNtupler.cc src/HHTo2B2GNtupler.cc src/JetCorrUtilities.cc src/SimpleJetCorrector.cc src/FactorizedJetCorrector.cc src/JetCorrectionUncertainty.cc src/JetCorrectorParameters.cc src/SimpleJetCorrectionUncertainty.cc src/EventAnalyzer.cc include/Events.hh
+SRC11 = app/RunZeeAnalyzer.cc src/ZeeAnalyzer.cc src/JetCorrUtilities.cc src/SimpleJetCorrector.cc src/FactorizedJetCorrector.cc src/JetCorrectionUncertainty.cc src/JetCorrectorParameters.cc src/SimpleJetCorrectionUncertainty.cc src/EventAnalyzer.cc include/Events.hh
 
 OBJ = $(SRC:.cc=.o)
 OBJ1 = $(SRC1:.cc=.o)
@@ -41,9 +43,11 @@ OBJ5 = $(SRC5:.cc=.o) src/Events.o
 #OBJ7 = $(SRC7:.cc=.o) src/Events.o 
 OBJ8 = $(SRC8:.cc=.o) src/Events.o 
 #OBJ9 = $(SRC9:.cc=.o) src/Events.o 
-OBJ10 = $(SRC10:.cc=.o) src/Events.o 
+OBJ10 = $(SRC10:.cc=.o) src/Events.o
+OBJ11 = $(SRC11:.cc=.o) src/Events.o
 
-all : $(TARGET) $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4) $(TARGET5) $(TARGET8) $(TARGET10)
+
+all : $(TARGET) $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4) $(TARGET5) $(TARGET8) $(TARGET10) $(TARGET11)
 
 $src/RazorEvents.o: $(SRCDIR)/RazorEvents.C $(INCLUDEDIR)/RazorEvents.h
 	$(CXX) $(SRCDIR)/RazorEvents.C $(CXXFLAGS) -I$(INCLUDEDIR) -c $(LDFLAGS) $(LIBS) -o $@ $(CXX14FLAGS)
@@ -110,6 +114,12 @@ $(TARGET8) : $(OBJ8)
 
 $(TARGET10) : $(OBJ10)
 	$(LD) $(CPPFLAGS) -o $(TARGET10) $(OBJ10) $(LDFLAGS) 
+	@echo $@
+	@echo $<
+	@echo $^
+
+$(TARGET11) : $(OBJ11)
+	$(LD) $(CPPFLAGS) -o $(TARGET11) $(OBJ11) $(LDFLAGS)
 	@echo $@
 	@echo $<
 	@echo $^

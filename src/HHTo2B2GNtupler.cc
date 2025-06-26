@@ -626,6 +626,17 @@ void HHTo2B2GNtupler::Analyze(bool isData, int Option, string outputfilename, st
 
     //output TTree
     TTree *outputTree = new TTree("tree", "");
+
+    //histogram with jet cutflow
+    TH1F* jetCutflow = new TH1F("jetCutflow", "Jet Selection Cutflow;Selection Step;Events", 6, 0, 6);
+    jetCutflow->GetXaxis()->SetBinLabel(1, "All Events");
+    jetCutflow->GetXaxis()->SetBinLabel(2, "pT>25 GeV ");
+    jetCutflow->GetXaxis()->SetBinLabel(3, "Eta < 2.5");
+    jetCutflow->GetXaxis()->SetBinLabel(4, "Delta r > 0.4");
+    jetCutflow->GetXaxis()->SetBinLabel(5, "Dijet mass in 70-190 GeV");
+
+
+    
  
     //------------------------
     //declare branch variables
@@ -3284,8 +3295,8 @@ void HHTo2B2GNtupler::Analyze(bool isData, int Option, string outputfilename, st
         GenBJet4_idx = -1;
         CloseBQuark = 0;
         for(int i = 0; i < nGenJet; i++) {
-          if (abs(GenJet_partonFlavour[i])!=5) continue;
-          if (deltaR(genbQuark1_Eta, genbQuark1_Phi, genbQuark2_Eta, genbQuark2_Phi) > 1.2){ 
+          // if (abs(GenJet_partonFlavour[i])!=5) continue;
+          // if (deltaR(genbQuark1_Eta, genbQuark1_Phi, genbQuark2_Eta, genbQuark2_Phi) > 1.2){ 
             if (deltaR(GenJet_eta[i], GenJet_phi[i], genbQuark1_Eta, genbQuark1_Phi) < margin1){
               margin1 = deltaR(GenJet_eta[i], GenJet_phi[i], genbQuark1_Eta, genbQuark1_Phi);
               GenBJet1_Pt = GenJet_pt[i];
@@ -3301,29 +3312,75 @@ void HHTo2B2GNtupler::Analyze(bool isData, int Option, string outputfilename, st
               GenBJet2_Mass = GenJet_mass[i];
               GenBJet2_idx = i;
             }
-          }else{
-            if (deltaR(GenJet_eta[i], GenJet_phi[i], tobbHiggs_Eta, tobbHiggs_Phi) < 1.6){
-               CloseBQuark++;
-             }
-            if (CloseBQuark == 1){
-              GenBJet3_Pt = GenJet_pt[i];
-              GenBJet3_Eta = GenJet_eta[i];
-              GenBJet3_Phi = GenJet_phi[i];
-              GenBJet3_Mass = GenJet_mass[i];
-              GenBJet3_idx = i;
-            }
-            if (CloseBQuark == 2){
-              GenBJet4_Pt = GenJet_pt[i];
-              GenBJet4_Eta = GenJet_eta[i];
-              GenBJet4_Phi = GenJet_phi[i];
-              GenBJet4_Mass = GenJet_mass[i];
-              GenBJet4_idx = i;
-            }
-          }
+          // }else{
+            // if (deltaR(GenJet_eta[i], GenJet_phi[i], tobbHiggs_Eta, tobbHiggs_Phi) < 1.6){
+               // CloseBQuark++;
+             // }
+            // if (CloseBQuark == 1){
+              // GenBJet3_Pt = GenJet_pt[i];
+              // GenBJet3_Eta = GenJet_eta[i];
+              // GenBJet3_Phi = GenJet_phi[i];
+              // GenBJet3_Mass = GenJet_mass[i];
+              // GenBJet3_idx = i;
+            // }
+            // if (CloseBQuark == 2){
+              // GenBJet4_Pt = GenJet_pt[i];
+              // GenBJet4_Eta = GenJet_eta[i];
+              // GenBJet4_Phi = GenJet_phi[i];
+              // GenBJet4_Mass = GenJet_mass[i];
+              // GenBJet4_idx = i;
+            // }
+          // }
         }
       } //end !isData 
-      std::vector<Jet> jets;    
-      for(int i = 0; i < nJet; i++){
+
+      std::vector<Jet> jets;
+      jetCutflow->Fill(0);  
+      if (nJet >= 2) {
+          int ptPass = 0;
+          int etaPass = 0;
+          int dRPass = 0;
+          for (int i = 0; i < nJet; i++) {
+              bool passPt = Jet_pt[i] > 20;
+              bool passEta = fabs(Jet_eta[i]) < 2.5;
+              float dR1 = deltaR(Jet_eta[i], Jet_phi[i], pho1Eta, pho1Phi);
+              float dR2 = deltaR(Jet_eta[i], Jet_phi[i], pho2Eta, pho2Phi);
+              bool passDR = dR1 > 0.4 && dR2 > 0.4;
+              if (passPt) ptPass++;
+              if (passPt && passEta) etaPass++;
+              if (passPt && passEta && passDR){
+                dRPass++;
+                jets.push_back({Jet_pt[i], Jet_btagPNetB[i], false, Jet_mass[i], Jet_eta[i], Jet_phi[i], Jet_PNetRegPtRawRes[i], Jet_PNetRegPtRawCorr[i], Jet_PNetRegPtRawCorrNeutrino[i]});                     
+              }
+          }
+          if (ptPass >= 2) jetCutflow->Fill(1); 
+          if (etaPass >= 2) jetCutflow->Fill(2);  
+          if (dRPass >= 2)jetCutflow->Fill(3);  
+      }
+      std::sort(jets.begin(), jets.end(), [](const Jet& a, const Jet& b) {
+          return a.pt > b.pt;
+      });
+      struct JetPair {
+          int jet1_index;
+          int jet2_index;
+          double invariant_mass;
+          double btag_sum;
+      };
+      std::vector<JetPair> valid_pairs;
+      for (size_t i = 0; i < jets.size(); ++i) {
+          for (size_t j = i + 1; j < jets.size(); ++j) {
+              double mass = calculateInvariantMass(jets[i], jets[j]);
+              if (mass >= 70 && mass <= 190 &&
+                  fabs(jets[i].eta) < 2.5 && fabs(jets[j].eta) < 2.5) {
+                  valid_pairs.push_back({(int)i, (int)j, mass, jets[i].btag_score + jets[j].btag_score});
+              }
+          }
+      }
+      if (!valid_pairs.empty()) {
+          jetCutflow->Fill(4);  
+      }
+
+    
        // Farjet = 1;
        // if (GenBJet1_idx != -1 && Jet_genJetIdx[i] == GenBJet1_idx){
        //   jet1Pt = Jet_pt[i];
@@ -3380,15 +3437,16 @@ void HHTo2B2GNtupler::Analyze(bool isData, int Option, string outputfilename, st
 	
 	*/
 
-
+        /*
         // Read the properties for each jet
         if(Jet_pt[i] > 20 && fabs(Jet_eta[i]) < 4.7 && deltaR(Jet_eta[i], Jet_phi[i], pho1Eta, pho1Phi) > 0.4 && deltaR(Jet_eta[i], Jet_phi[i], pho2Eta, pho2Phi) > 0.4){
         // Add the new jet to the list with default bT value as false
           jets.push_back({Jet_pt[i], Jet_btagPNetB[i], false, Jet_mass[i], Jet_eta[i], Jet_phi[i], Jet_PNetRegPtRawRes[i], Jet_PNetRegPtRawCorr[i], Jet_PNetRegPtRawCorrNeutrino[i]});
         }
-      }
+        */  
 
       processJets(jets);
+
       NJets = jets.size();
       for (int l=0; l<jets.size(); l++){
 	if (jets[l].bT == true && jets[l].pt>b_jet1Pt){
