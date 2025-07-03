@@ -129,4 +129,4 @@ $(TARGET11) : $(OBJ11)
 	@echo $@
 	@echo $<
 clean :
-	rm -f *.o src/*.o $(TARGET) $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4) $(TARGET5) $(TARGET8) $(TARGET10) app/*.o include/*.o *~
+	rm -f *.o src/*.o $(TARGET) $(TARGET1) $(TARGET2) $(TARGET3) $(TARGET4) $(TARGET5) $(TARGET8) $(TARGET10) $(TARGET11) app/*.o include/*.o *~

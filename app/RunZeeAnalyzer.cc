@@ -123,7 +123,15 @@ int main(int argc, char* argv[]){
     {
       std::cerr << "[WARNING]: pileupWeightName not provided, using default empty pileupWeightName" << std::endl;
     }
- 
+  std::string _cutConfig = ParseCommandLine( argc, argv, "--cutConfig=" );
+  int cutConfig = 6;
+  if (_cutConfig != "") {
+      cutConfig = atoi(_cutConfig.c_str());
+      std::cout << "[INFO]: cutConfig --> " << cutConfig << std::endl;
+  } else {
+      std::cerr << "[WARNING]: cutConfig not provided, defaulting to 0" << std::endl;
+  }
+
   std::cout << "[INFO]: <input list> --> " << inputFileName << std::endl;
   std::cout << "[INFO]: isData --> " << isData << std::endl;
   std::cout << "[INFO]: outputFileName --> " << outputFileName << std::endl;
@@ -163,7 +171,7 @@ int main(int argc, char* argv[]){
     //------ EXECUTE ------//
     cout << "Executing ZeeAnalyzer..." << endl;
     //analyzer.EnableAll();
-    analyzer.Analyze(isData, option, outputFileName, year, pileupWeightName);
+    analyzer.Analyze(isData, option, cutConfig, outputFileName, year, pileupWeightName);
     cout << "Process completed!" << endl;
     cerr << "------------------------------" << endl; //present so that an empty .err file corresponds to a failed job
     
