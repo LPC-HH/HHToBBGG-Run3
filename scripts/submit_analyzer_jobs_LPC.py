@@ -11,8 +11,11 @@ from collections import OrderedDict
 option = 0
 label = "option"+str(option)
 
-analysis = "HHTo2B2GNtupler"
-outputfile = "HHTo2B2GNtuple" + "_" + label
+analysis = "ZeeAnalyzer"
+outputfile = "ZeeAnalysisNtuple" + "_" + label
+
+#analysis = "HHTo2B2GNtupler"
+#outputfile = "HHTo2B2GNtuple" + "_" + label
 
 #analysis = "JetHTTriggerNtupler"
 #outputfile = "JetHTTriggerNtuple" + "_" + label
@@ -24,11 +27,12 @@ cmsswReleaseVersion = "CMSSW_14_0_7"
 
 
 
-outputDirectoryBase = "/store/group/lpcdihiggsboost/sixie/analyzer/"+analysis+"/"+label+"/"
+outputDirectoryBase = "/store/group/lpcdihiggsboost/nparekh/analyzer/"+analysis+"/"+label+"/"
 filesPerJob = 1
 
 datasetList = OrderedDict()
 
+"""
 #2022 ntuples
 
 datasetList["nano/run3/2022/Run2022B-22Sep2023-v2.list"] = [1, 1, "2022", "", 1]
@@ -92,6 +96,9 @@ datasetList['nano/run3/2023/EGamma_2023C_v2.list'] = [1, 1, "2023", "", 1]
 datasetList['nano/run3/2023/EGamma_2023C_v3.list'] = [1, 1, "2023", "", 1]
 datasetList['nano/run3/2023/EGamma_2023C_v4.list'] = [1, 1, "2023", "", 1]
 
+"""
+datasetList['nano/run3/2023/DYto2E_MLL-50to120_TuneCP5_13p6TeV_powheg-pythia8_2023.list'] = [2, 1, "2023", "", 1]
+"""
 datasetList["nano/run3/2023/GluGlutoHHto2B2G_kl-1p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2023", "", 1]
 datasetList["nano/run3/2023/GluGlutoHHto2B2G_kl-0p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2023", "", 1]
 datasetList["nano/run3/2023/GluGlutoHHto2B2G_kl-5p00_kt-1p00_c2-0p00_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2023", "", 1]
@@ -145,6 +152,9 @@ datasetList["nano/run3/2023/TTGG_TuneCP5_13p6TeV_madgraph-madspin-pythia8.list"]
 datasetList['nano/run3/2023/EGamma_2023D_v1.list'] = [1, 1, "2023BPix", "", 1]
 datasetList['nano/run3/2023/EGamma_2023D_v2.list'] = [1, 1, "2023BPix", "", 1]
 
+"""
+datasetList["nano/run3/2023BPix/DYto2E_MLL-50to120_TuneCP5_13p6TeV_powheg-pythia8_2023BPix.list"] = [2, 1, "2023BPix", "", 1]
+"""
 datasetList["nano/run3/2023BPix/BBHto2G_M-125_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2023BPix", "", 1]
 datasetList["nano/run3/2023BPix/GG-Box-3Jets_MGG-0to40_13p6TeV_sherpa.list"] = [2, 1, "2023BPix", "", 1]
 datasetList["nano/run3/2023BPix/GG-Box-3Jets_MGG-40to80_13p6TeV_sherpa.list"] = [2, 1, "2023BPix", "", 1]
@@ -192,6 +202,28 @@ datasetList["nano/run3/2023BPix/ggZH_Hto2G_Zto2Nu_M-125_TuneCP5_13p6TeV_powheg-p
 datasetList["nano/run3/2023BPix/ggZH_Hto2G_Zto2Q_M-125_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2023BPix", "", 1]
 datasetList["nano/run3/2023BPix/ttHtoGG_M-125_TuneCP5_13p6TeV_amcatnloFXFX-madspin-pythia8.list"] = [2, 1, "2023BPix", "", 1]
 
+########################################################
+#2024 ntuples
+########################################################
+
+datasetList["nano/run3/2024/EGamma_2024B.list"] = [1, 1, "2024", "", 1]
+datasetList["nano/run3/2024/EGamma_2024C.list"] = [1, 1, "2024", "", 1]
+datasetList["nano/run3/2024/EGamma_2024D.list"] = [1, 1, "2024", "", 1]
+datasetList["nano/run3/2024/EGamma_2024E-v1.list"] = [1, 1, "2024", "", 1]
+datasetList["nano/run3/2024/EGamma_2024E-v2.list"] = [1, 1, "2024", "", 1]
+datasetList["nano/run3/2024/EGamma_2024F.list"] = [1, 1, "2024", "", 1]
+datasetList["nano/run3/2024/EGamma_2024G.list"] = [1, 1, "2024", "", 1]
+datasetList["nano/run3/2024/EGamma_2024H.list"] = [1, 1, "2024", "", 1]
+"""
+datasetList["nano/run3/2024/DYto2E_Bin-MLL-50to120_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
+datasetList["nano/run3/2024/DYto2E_Bin-MLL-120to200_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
+datasetList["nano/run3/2024/DYto2E_Bin-MLL-200to400_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
+datasetList["nano/run3/2024/DYto2E_Bin-MLL-400to800_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
+datasetList["nano/run3/2024/DYto2E_Bin-MLL-800to1500_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
+datasetList["nano/run3/2024/DYto2E_Bin-MLL-1500to2500_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
+datasetList["nano/run3/2024/DYto2E_Bin-MLL-2500to4000_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
+datasetList["nano/run3/2024/DYto2E_Bin-MLL-4000to6000_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
+datasetList["nano/run3/2024/DYto2E_Bin-MLL-6000_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
 
 CMSSW_BASE_DIR = os.getenv('CMSSW_BASE')
 Analyzer_DIR = CMSSW_BASE_DIR+"/src/HHToBBGG-Run3/"
@@ -266,6 +298,7 @@ for listfile in datasetList.keys():
     os.system("cp " + Analyzer_DIR + "/data/JetHTTriggerEfficiency_Fall18.root " + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/")
 
     os.system("cp " + Analyzer_DIR + "/Run3_2022_2023_Golden.json " + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/")
+    os.system("cp " + Analyzer_DIR + "/Run3_2024_Golden.json " + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/")
 
     os.system("mkdir -p " + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/PileupWeights/")
     os.system("cp " + Analyzer_DIR + "/data/PileupWeights/PileupWeights.root " + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/PileupWeights/")
@@ -281,6 +314,8 @@ for listfile in datasetList.keys():
     os.system("cp " + Analyzer_DIR + "/data/JEC/Fall17_17Nov2017_V32_MC/Fall17_17Nov2017_V32_MC_Uncertainty_AK8PFPuppi.txt " + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JEC/Fall17_17Nov2017_V32_MC/")
     os.system("mkdir -p " + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JEC/Autumn18_V19_MC/")
     os.system("cp " + Analyzer_DIR + "/data/JEC/Autumn18_V19_MC/Autumn18_V19_MC_Uncertainty_AK8PFPuppi.txt " + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JEC/Autumn18_V19_MC/")
+    os.system("mkdir -p " + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JEC/Summer22_22Sep2023_RunCD_V2_DATA/")
+    os.system("cp " + Analyzer_DIR + "/data/JEC/Summer22_22Sep2023_RunCD_V2_DATA/Summer22_22Sep2023_RunCD_V2_DATA_L1FastJet_AK4PFchs.txt " + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JEC/Summer22_22Sep2023_RunCD_V2_DATA/")    
 
 
     #####################################
@@ -311,6 +346,7 @@ x509userproxy = $ENV(X509_USER_PROXY)
         + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JetHTTriggerEfficiency_2017" + ".root, "
         + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JetHTTriggerEfficiency_2018" + ".root, "
         + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/Run3_2022_2023_Golden.json, "  # json file
+        + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/Run3_2024_Golden.json, "
         + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JetHTTriggerEfficiency_Summer16.root, " 
         + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JetHTTriggerEfficiency_Fall17.root, " 
         + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JetHTTriggerEfficiency_Fall18.root, " 
@@ -320,8 +356,8 @@ x509userproxy = $ENV(X509_USER_PROXY)
         + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/PileupWeights/PileupReweight_Summer23.root, "
         + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/PileupWeights/PileupReweight_Summer23BPix.root, "
         + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JEC/Summer16_07Aug2017_V11_MC/Summer16_07Aug2017_V11_MC_Uncertainty_AK8PFPuppi.txt, " 
-        + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JEC/Fall17_17Nov2017_V32_MC/Fall17_17Nov2017_V32_MC_Uncertainty_AK8PFPuppi.txt, " 
-        + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JEC/Autumn18_V19_MC/Autumn18_V19_MC_Uncertainty_AK8PFPuppi.txt " + "\n"
+        + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JEC/Fall17_17Nov2017_V32_MC/Fall17_17Nov2017_V32_MC_Uncertainty_AK8PFPuppi.txt, "
+        + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JEC/Summer22_22Sep2023_RunCD_V2_DATA/Summer22_22Sep2023_RunCD_V2_DATA_L1FastJet_AK4PFchs.txt, " + Analyzer_DIR + "/condor/analyzer_" + analysis + "_" + label + "/" + datasetName + "/HHToBBGG-Run3/data/JEC/Autumn18_V19_MC/Autumn18_V19_MC_Uncertainty_AK8PFPuppi.txt " + "\n"
     )
 
     tmpCondorJDLFileTemplate = """
@@ -331,7 +367,7 @@ when_to_transfer_output = ON_EXIT
 # Resources request
 """
     tmpCondorJDLFile.write(tmpCondorJDLFileTemplate)
-    tmpCondorJDLFile.write("RequestMemory = 2000 \n")
+    tmpCondorJDLFile.write("RequestMemory = 6000 \n")
 
     tmpCondorJDLFileTemplate = """
 
@@ -344,8 +380,3 @@ Queue I from (
         tmpCondorJDLFile.write(str(i)+"\n")
     tmpCondorJDLFile.write(")\n")
     tmpCondorJDLFile.close()
-
-
-
-
-
