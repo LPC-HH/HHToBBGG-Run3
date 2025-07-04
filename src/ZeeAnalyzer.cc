@@ -3813,11 +3813,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
       if (
 	  Option == 100 || 
 	  Option == 0 || 
-	  (Option == 5 && fatJet1Pt > 250 && fatJet2Pt > 250 && fatJet1MassSD > 50 
-	   && fatJet2MassSD > 50 && fatJet1PNetXbb > 0.8) || 
-	  (Option == 10 && ( (fatJet1Pt > 250 && fatJet2Pt > 250) || (fatJet1Pt > 250 && lep1Id != 0)) ) || 
-	  (Option == 20 && fatJet1Pt > 250 && fatJet1MassSD > 30 && lep1Id == 0) ||
-	  (Option == 21 && fatJet1Pt > 250 && fatJet1MassSD > 30 )
+    (Option == 1 && pho1Pt>35 && pho2Pt>25)
 	  ) {
 	 
 

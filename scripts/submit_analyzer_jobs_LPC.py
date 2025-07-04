@@ -8,7 +8,7 @@ import glob
 import sys
 from collections import OrderedDict
 
-option = 0
+option = 1
 label = "option"+str(option)
 
 analysis = "ZeeAnalyzer"
@@ -91,11 +91,15 @@ datasetList['nano/run3/2022/QCD_PT-40toInf_DoubleEMEnriched_MGG-80toInf_TuneCP5_
 ########################################################
 #2023 ntuples
 ########################################################
+
+#Data
+"""
 datasetList['nano/run3/2023/EGamma_2023C_v1.list'] = [1, 1, "2023", "", 1]
 datasetList['nano/run3/2023/EGamma_2023C_v2.list'] = [1, 1, "2023", "", 1]
 datasetList['nano/run3/2023/EGamma_2023C_v3.list'] = [1, 1, "2023", "", 1]
 datasetList['nano/run3/2023/EGamma_2023C_v4.list'] = [1, 1, "2023", "", 1]
-
+"""
+#MC
 """
 datasetList['nano/run3/2023/DYto2E_MLL-50to120_TuneCP5_13p6TeV_powheg-pythia8_2023.list'] = [2, 1, "2023", "", 1]
 """
@@ -149,9 +153,13 @@ datasetList["nano/run3/2023/TTGG_TuneCP5_13p6TeV_madgraph-madspin-pythia8.list"]
 ########################################################
 #2023BPix ntuples
 ########################################################
+"""
+#Data
 datasetList['nano/run3/2023/EGamma_2023D_v1.list'] = [1, 1, "2023BPix", "", 1]
 datasetList['nano/run3/2023/EGamma_2023D_v2.list'] = [1, 1, "2023BPix", "", 1]
 
+"""
+#MC
 """
 datasetList["nano/run3/2023BPix/DYto2E_MLL-50to120_TuneCP5_13p6TeV_powheg-pythia8_2023BPix.list"] = [2, 1, "2023BPix", "", 1]
 """
@@ -205,7 +213,8 @@ datasetList["nano/run3/2023BPix/ttHtoGG_M-125_TuneCP5_13p6TeV_amcatnloFXFX-madsp
 ########################################################
 #2024 ntuples
 ########################################################
-
+"""
+#Data
 datasetList["nano/run3/2024/EGamma_2024B.list"] = [1, 1, "2024", "", 1]
 datasetList["nano/run3/2024/EGamma_2024C.list"] = [1, 1, "2024", "", 1]
 datasetList["nano/run3/2024/EGamma_2024D.list"] = [1, 1, "2024", "", 1]
@@ -214,8 +223,12 @@ datasetList["nano/run3/2024/EGamma_2024E-v2.list"] = [1, 1, "2024", "", 1]
 datasetList["nano/run3/2024/EGamma_2024F.list"] = [1, 1, "2024", "", 1]
 datasetList["nano/run3/2024/EGamma_2024G.list"] = [1, 1, "2024", "", 1]
 datasetList["nano/run3/2024/EGamma_2024H.list"] = [1, 1, "2024", "", 1]
-"""
+
+#MC
+
 datasetList["nano/run3/2024/DYto2E_Bin-MLL-50to120_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
+
+"""
 datasetList["nano/run3/2024/DYto2E_Bin-MLL-120to200_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
 datasetList["nano/run3/2024/DYto2E_Bin-MLL-200to400_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
 datasetList["nano/run3/2024/DYto2E_Bin-MLL-400to800_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
@@ -224,7 +237,7 @@ datasetList["nano/run3/2024/DYto2E_Bin-MLL-1500to2500_TuneCP5_13p6TeV_powheg-pyt
 datasetList["nano/run3/2024/DYto2E_Bin-MLL-2500to4000_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
 datasetList["nano/run3/2024/DYto2E_Bin-MLL-4000to6000_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
 datasetList["nano/run3/2024/DYto2E_Bin-MLL-6000_TuneCP5_13p6TeV_powheg-pythia8.list"] = [2, 1, "2024", "", 1]
-
+"""
 CMSSW_BASE_DIR = os.getenv('CMSSW_BASE')
 Analyzer_DIR = CMSSW_BASE_DIR+"/src/HHToBBGG-Run3/"
 print(Analyzer_DIR)
