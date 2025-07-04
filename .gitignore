@@ -1,4 +1,4 @@
 data/*.root
 data/PileupWeights/*.root
 list/tmpOutput.json
-condor/analyzer_ZeeAnalyzer_option0/
+condor/
