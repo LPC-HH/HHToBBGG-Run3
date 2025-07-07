@@ -1250,7 +1250,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
       outputTree->Branch("vbffatJet2Phi", &vbffatJet2Phi, "vbffatJet2Phi/F");
     }
 
-    if (Option == 0 && (!isData)) {
+    if ((Option == 0 or Option ==1) && (!isData)) {
       outputTree->Branch("genPhoton1Pt", &genPhoton1Pt, "genPhoton1Pt/F");
       outputTree->Branch("genPhoton1Eta", &genPhoton1Eta, "genPhoton1Eta/F");
       outputTree->Branch("genPhoton1Phi", &genPhoton1Phi, "genPhoton1Phi/F");
@@ -1552,7 +1552,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
    //   outputTree->Branch("genZPhi", &genZPhi, "genZPhi/F");
   // }
 
-    if (Option == 0 || Option == 20 || Option == 21) {
+    if (Option == 0 || Option == 20 || Option == 21 || Option == 1) {
       outputTree->Branch("pho1Pt", &pho1Pt, "pho1Pt/F");
       outputTree->Branch("pho1Eta", &pho1Eta, "pho1Eta/F");
       outputTree->Branch("pho1Phi", &pho1Phi, "pho1Phi/F");
@@ -1593,7 +1593,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
 
 
     }
-    if (Option == 0 ){ // BDT variables + ttHKiller Variables
+    if (Option == 0 || Option == 1){ // BDT variables + ttHKiller Variables
       outputTree->Branch("pho1_energyErr", &pho1_energyErr, "pho1_energyErr/F");
       outputTree->Branch("pho1_energyRaw", &pho1_energyRaw, "pho1_energyRaw/F");
       outputTree->Branch("pho2_energyErr", &pho2_energyErr, "pho2_energyErr/F");
@@ -1681,7 +1681,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
     
     }
 
-    if (Option == 0 && (!isData) ) {
+    if ((Option == 0 or Option == 1) && (!isData) ) {
       outputTree->Branch("nGenJet", &nGenJet, "nGenJet/I");
       outputTree->Branch("GenJet_eta", &genJetEta, "GenJet_eta[nGenJet]/F");
       outputTree->Branch("GenJet_phi", &genJetPhi, "GenJet_phi[nGenJet]/F");
