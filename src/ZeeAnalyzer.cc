@@ -330,7 +330,7 @@ void processJets(std::vector<Jet>& jets) {
     for (size_t i = 0; i < jets.size(); ++i) {
         for (size_t j = i + 1; j < jets.size(); ++j) {
             double mass = calculateInvariantMass(jets[i], jets[j]);
-            if (mass >= 70 && mass <= 190 && fabs(jets[i].eta)<2.5 && fabs(jets[j].eta)<2.5) {
+            if (mass >= 35 && mass <= 190 && fabs(jets[i].eta)<2.5 && fabs(jets[j].eta)<2.5) {
                 valid_pairs.push_back({(int)i, (int)j, mass, jets[i].btag_score + jets[j].btag_score});
             }
         }
@@ -374,6 +374,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
     TH1F *pileupWeightDownHist = 0;
     
     string CMSSWDir = std::getenv("CMSSW_BASE");
+    
     if (!isData) {
       string triggerEffFilename = "";
       string triggerEffMCFilename = "";
@@ -386,10 +387,11 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
       } else if (year == "2018") {
 	triggerEffFilename = CMSSWDir + "/src/HHToBBGG-Run3/data/JetHTTriggerEfficiency_2018.root";
 	triggerEffMCFilename = CMSSWDir + "/src/HHToBBGG-Run3/data/JetHTTriggerEfficiency_Fall18.root";
-      } else if (year == "2022" || year == "2022EE" || year == "2023" || year == "2023BPix" || year == "2024"){
+      } else if (year == "2022" || year == "2022EE" || year == "2023" || year == "2023BPix" || year == "2024" || year == "2025"){
         triggerEffFilename = CMSSWDir + "/src/HHToBBGG-Run3/data/JetHTTriggerEfficiency_2018.root";
         triggerEffMCFilename = CMSSWDir + "/src/HHToBBGG-Run3/data/JetHTTriggerEfficiency_Fall18.root";
       }
+
         else {
 	cout << "[ZeeAnalyzer] Warning: year " << year << " is not supported. \n";
       }
@@ -447,7 +449,10 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
 	pileupWeightFilename = CMSSWDir + "/src/HHToBBGG-Run3/data/PileupWeights/PileupReweight_Summer23BPix.root";
       } else if (year == "2024") {
 	pileupWeightFilename = CMSSWDir + "/src/HHToBBGG-Run3/data/PileupWeights/PileupReweight_Summer23.root";
+      } else if (year == "2025") {
+	pileupWeightFilename = CMSSWDir + "/src/HHToBBGG-Run3/data/PileupWeights/PileupReweight_Summer23.root";
       }
+
 
 
       TFile *pileupWeightFile = new TFile(pileupWeightFilename.c_str(),"READ");
@@ -511,7 +516,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
 	float tmp_jms[] = {0.997, 0.993, 1.001};
 	jmsValues = tmp_jms;
       }
-    else if(year == "2022")
+    else if(year == "2022" || year == "2022EE")
       {
 	float tmp_jms[] = {0.997, 0.993, 1.001};
 	jmsValues = tmp_jms;
@@ -521,7 +526,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
 	float tmp_jms[] = {0.997, 0.993, 1.001};
 	jmsValues = tmp_jms;
       }
-    else if(year == "2024" || year == "2024BPix")
+    else if(year == "2024" || year == "2025")
       {
 	float tmp_jms[] = {0.997, 0.993, 1.001};
 	jmsValues = tmp_jms;
@@ -554,7 +559,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
 	float tmp_jmr[] = {1.065, 1.031, 1.099}; //Tuned to our Top control region
         jmrValues = tmp_jmr;
       } 
-    else if(year == "2022")
+    else if(year == "2022" || year == "2022EE")
       {
 	//float tmp_jmr[] = {1.24, 1.20, 1.28};
 	float tmp_jmr[] = {1.065, 1.031, 1.099}; //Tuned to our Top control region
@@ -566,7 +571,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
         float tmp_jmr[] = {1.065, 1.031, 1.099}; //Tuned to our Top control region
 	jmrValues = tmp_jmr;
       }
-    else if(year == "2024" )
+    else if(year == "2024"|| year == "2025" )
       {
 	//float tmp_jmr[] = {1.24, 1.20, 1.28};
         float tmp_jmr[] = {1.065, 1.031, 1.099}; //Tuned to our Top control region
@@ -614,7 +619,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
       JECUncertaintyFile = CMSSWDir + "/src/HHToBBGG-Run3/data/JEC/Fall17_17Nov2017_V32_MC/Fall17_17Nov2017_V32_MC_Uncertainty_AK8PFPuppi.txt";
     } else if (year == "2018") {
      JECUncertaintyFile = CMSSWDir + "/src/HHToBBGG-Run3/data/JEC/Autumn18_V19_MC/Autumn18_V19_MC_Uncertainty_AK8PFPuppi.txt";
-    } else if (year == "2022") {
+    } else if (year == "2022" or year == "2022EE") {
      JECUncertaintyFile = CMSSWDir + "/src/HHToBBGG-Run3/data/JEC/Autumn18_V19_MC/Autumn18_V19_MC_Uncertainty_AK8PFPuppi.txt";
     }
     JetCorrectionUncertainty *jecUnc = new JetCorrectionUncertainty(JECUncertaintyFile.c_str());
@@ -1765,6 +1770,9 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
     if (year == "2024" ) {
         Golden_jsonFile = CMSSWDir + "/src/HHToBBGG-Run3/data/Run3_2024_Golden.json";
     }
+    if (year == "2025" ) {
+        Golden_jsonFile = CMSSWDir + "/src/HHToBBGG-Run3/data/Run3_2025_Golden_391658_393461.json";
+    }
     else {
         Golden_jsonFile = CMSSWDir + "/src/HHToBBGG-Run3/data/Run3_2022_2023_Golden.json";
     }
@@ -1815,7 +1823,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
               std::cout << "Event is in JSON." << std::endl;
           }
       }
-          */
+      */    
             
    //   cout << isInRange << endl;
       if(isData && !isInRange) {
@@ -2344,7 +2352,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
       std::vector< TLorentzVector > genHiggsVector;
       if (!isData) {
 	for(int i = 0; i < nGenPart; i++) {
-          if ( abs(GenPart_pdgId[i]) == 5 && GenPart_pdgId[GenPart_genPartIdxMother[i]] == 25 && GenPart_status[GenPart_genPartIdxMother[i]]==62 ){
+          if ( abs(GenPart_pdgId[i]) == 5 && GenPart_pdgId[GenPart_genPartIdxMother[i]] == 23 && GenPart_status[GenPart_genPartIdxMother[i]]==62 ){
             if (genbQuark1_Pt < 0){
               genbQuark1_Pt = GenPart_pt[i];
               genbQuark1_Eta = GenPart_eta[i];
@@ -2396,6 +2404,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
 	      genPhoton2Phi = GenPart_phi[i];
               genPho2_Idx = i;
             }
+
 	    if (toggHiggs_Pt<0){    
               toggHiggs_Pt = GenPart_pt[GenPart_genPartIdxMother[i]];   
               toggHiggs_Eta = GenPart_eta[GenPart_genPartIdxMother[i]];         
@@ -3059,7 +3068,7 @@ void ZeeAnalyzer::Analyze(bool isData, int Option, int cutConfig, string outputf
       //if (year == "2016") btagMediumCut = 0.3033;
       //else if (year == "2017") btagMediumCut = 0.3033 ;
       //else if (year == "2018") btagMediumCut = 0.2770 ;
-      if (year == "2022") btagMediumCut = 0.2605 ;
+      if (year == "2022" || year == "2022EE") btagMediumCut = 0.2605 ;
       for(unsigned int q = 0; q < nJet; q++ ) {       
 	if (Jet_pt[q] > 25 && Jet_btagPNetB[q] > btagMediumCut && 
 	    deltaPhi(fatJet1Phi, Jet_phi[q]) > 2.5
